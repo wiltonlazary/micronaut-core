@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Interface for {@link BeanDefinitionVisitor} implementations such as {@link BeanDefinitionWriter}.
@@ -69,7 +70,6 @@ public interface BeanDefinitionVisitor {
      */
     void visitBeanDefinitionConstructor(AnnotationMetadata annotationMetadata,
                                         boolean requiresReflection,
-
                                         Map<String, Object> argumentTypes,
                                         Map<String, AnnotationMetadata> argumentAnnotationMetadata,
                                         Map<String, Map<String, Object>> genericTypes);
@@ -131,6 +131,17 @@ public interface BeanDefinitionVisitor {
      * @param validated Whether the bean definition is validated
      */
     void setValidated(boolean validated);
+
+    /**
+     * Sets the name of the intercepted type.
+     * @param typeName The type name
+     */
+    void setInterceptedType(String typeName);
+
+    /**
+     * @return The intercepted type
+     */
+    Optional<Type> getInterceptedType();
 
     /**
      * @return Return whether the bean definition is validated.

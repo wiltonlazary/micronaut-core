@@ -216,6 +216,7 @@ public class AopProxyWriter extends AbstractClassFileWriter implements ProxyingB
                 parent.getAnnotationMetadata());
         startClass(classWriter, getInternalName(proxyFullName), getTypeReference(targetClassFullName));
         processAlreadyVisitedMethods(parent);
+        proxyBeanDefinitionWriter.setInterceptedType(targetClassFullName);
     }
 
     /**
@@ -288,6 +289,7 @@ public class AopProxyWriter extends AbstractClassFileWriter implements ProxyingB
                 originatingElement,
                 annotationMetadata
         );
+        proxyBeanDefinitionWriter.setInterceptedType(targetClassFullName);
         startClass(classWriter, proxyInternalName, getTypeReference(targetClassFullName));
     }
 
@@ -360,6 +362,16 @@ public class AopProxyWriter extends AbstractClassFileWriter implements ProxyingB
     @Override
     public void setValidated(boolean validated) {
         proxyBeanDefinitionWriter.setValidated(validated);
+    }
+
+    @Override
+    public void setInterceptedType(String typeName) {
+        proxyBeanDefinitionWriter.setInterceptedType(typeName);
+    }
+
+    @Override
+    public Optional<Type> getInterceptedType() {
+        return proxyBeanDefinitionWriter.getInterceptedType();
     }
 
     @Override
